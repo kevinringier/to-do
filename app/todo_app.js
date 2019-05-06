@@ -1,12 +1,12 @@
-// setup
-var idCounter = 0;
 
+let taskId = 0;
 
 class Task {
     constructor(taskName) {
-        this.id = idCounter;
+        this.taskId = taskId;
         this.taskName = taskName;
         this.isComplete = false;
+        taskId++;
     }
 
     setIsComplete() {
@@ -14,38 +14,34 @@ class Task {
     }
 }
 
+/////////////////////////////
+//GET CREATE A TASK//////////
+/////////////////////////////
+let createTask = new function(taskName) {
+    let newTask = Task(taskName);
+    tasks.push(newTask);
+}
+
+/////////////////////////////
+//ALL TASKS//////////////////
+/////////////////////////////
 let tasks = [];
 
-function addTask(tasks, task) {
-    tasks.push(task);
+/////////////////////////////
+//GET ACTIVE TASKS///////////
+/////////////////////////////
+let getActiveTasks = new function() {
+    return tasks.filter(task => task.isComplete == false);
 }
 
-let testTask = new Task("Wash House");
-
-addTask(tasks, testTask);
-
-console.log(tasks);
-
-//------------------------------------------
-// execution
-
-function addTask() {
-    idCounter++;
-    let taskInput = document.getElementById("taskInput").value;
-    tasks.push(new Task(taskInput));
-    tasks.forEach(task => console.log(task));
-
-    tasks.forEach(task => {
-        let newElement = document.createElement('p');
-        newElement.id = task.id;
-        newElement.innerHTML = task.taskName;
-        document.body.appendChild(newElement);
-    });
+/////////////////////////////
+//GET COMPLETE TASKS/////////
+/////////////////////////////
+let getCompleteTasks = new function() {
+    return tasks.filter(task => task.isComplete == true);
 }
 
-var para = document.createElement("p");
-var node = document.createTextNode(testTask.taskName);
-para.appendChild(node);
+/////////////////////////////
+//REMOVE ALL TASKS///////////
+/////////////////////////////
 
-var element = document.getElementById("tasks");
-element.appendChild(para);  

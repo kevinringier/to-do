@@ -1,5 +1,6 @@
 
 let taskId = 0;
+const TASK_FORM = "taskForm";
 const TASKS_DIV_ID = "tasks";
 const ADD_TASK = "add_task";
 const ALL_TASKS = "all_tasks";
@@ -70,13 +71,16 @@ function removeElementsFromDiv(parentElementId) {
     }
 }
 
-document.getElementById(ADD_TASK).addEventListener('click', function() {
-    let taskForm = document.forms["taskForm"]
-    let taskName = taskForm.elements["taskInput"].value;
+document.getElementById(TASK_FORM).addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let taskForm = document.forms[TASK_FORM]
+    let taskInput = taskForm.elements["taskInput"];
     
-    createTask(taskName);
+    createTask(taskInput.value);
     removeElementsFromDiv(TASKS_DIV_ID);
     createTaskElements(filterTasks(currentFilter), TASKS_DIV_ID);
+    taskInput.value = '';
 });
 
 document.getElementById(ALL_TASKS).addEventListener('click', function() {
